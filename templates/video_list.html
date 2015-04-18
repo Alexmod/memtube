@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+{% block title %}Список видео{% endblock %}
+{% block body %}
+
+
+<ol class="breadcrumb">
+	<li><a href="/">Список каналов</a></li>
+	<li class="active">{{ namec.name }}</li>
+</ol>
+
+{% set channelID = allinfo['items'][0].snippet.channelId %}
+
+{% for row in allinfo['items'] %}
+{% if loop.first  %}
+<div class="row">
+	{% endif %}
+
+	{% if (loop.index - 1) is divisibleby 3 %}
+</div>
+<hr>
+<div class="row">
+	{% endif %}
+
+	<div class="col-md-4 portfolio-item">
+		<a href="/view-video/{{ channelID }}/{{ row.id.videoId }}/"><img src="{{ row.snippet.thumbnails.default.url }}" alt=""></a>
+		<p><a href="/view-video/{{ channelID }}/{{ row.id.videoId }}/">{{ row.snippet.title }}</a></p>
+		{% if not row.viwed %}
+		<p id="butt_{{ row.id.videoId }}"><a href="#" data-id="{{ row.id.videoId }}" class="viwed btn btn-primary" role="button">Отметить как просмотренное</a></p>
+		{% endif %}
+
+		<p id="viwed_{{ row.id.videoId }}" {% if not row.viwed %}class="hidden"{% endif %}><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Просмотрено</p>
+	</div>
+	{% endfor %}
+
+</div>
+
+<nav>
+	<ul class="pager">
+		{% if allinfo.prevPageToken %}
+		<li><a href="/channel-videos-list/{{ channelID }}/{{ allinfo.prevPageToken }}">Предыдущая</a></li>
+		{% else %}
+		<li class="disabled">Предыдущая</li>
+		{% endif %}
+
+		{% if allinfo.nextPageToken %}
+		<li><a href="/channel-videos-list/{{ channelID }}/{{ allinfo.nextPageToken }}">Следующая</a></li>
+		{% else %}
+		<li class="disabled">Следующая</li>
+		{% endif %}
+	</ul>
+</nav>
+
+
+
+
+
+{% endblock %}

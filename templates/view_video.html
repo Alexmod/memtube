@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block title %}Просмотр видео{% endblock %}
+{% block body %}
+
+
+<ol class="breadcrumb">
+	<a href="#" onclick="location.href = document.referrer; return false;">Назад к списку канала &laquo;{{ namec.name }}&raquo;</a>
+</ol>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ idv }}" frameborder="0" allowfullscreen></iframe>
+
+{% if not v.id %}
+<p id="butt_{{ idv }}"><a href="#" data-id="{{ idv }}" class="viwed btn btn-primary" role="button">Отметить как просмотренное</a></p>
+{% endif %}
+
+<p id="viwed_{{ idv }}" {% if not v.id %}class="hidden"{% endif %}><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Просмотрено</p>
+
+
+{% endblock %}

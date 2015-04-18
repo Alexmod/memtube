@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block title %}Добавить канал. Список каналов{% endblock %}
+{% block body %}
+
+<div class="inner cover">
+	<form method="post" action="/">
+		<div class="form-group">
+			<input type="url" name="url" class="form-control input-lg" placeholder="Ссылка на youtube канал. В url должно быть слово channel" autofocus>
+		</div>
+		<button type="submit" class="btn btn-lg  btn-default">Добавить</button>
+	</form>
+
+
+	{% for row in rows %}
+	{% if loop.first %}
+		<h1 class="cover-heading">Список добавленных каналов:</h1>
+		<ol>
+	{% endif %}
+	<li  class="lead"><a href="/channel-videos-list/{{ row.channelid }}/first_page/">{{ row.name }}</a></li>
+
+	{% if loop.last %}</ol>{% endif %}
+	{% endfor %}
+		
+
+
+
+
+</div>
+
+
+{% endblock %}
